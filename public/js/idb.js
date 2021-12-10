@@ -46,6 +46,7 @@ function saveRecord(record) {
 
     // add the record to the object store with the key being the record's id using the add method
     budgetObjectStore.add(record);
+    alert('<(^.^<) (>^.^)> <(^.^<) (>^.^)> has saved your data locally!');
 }
 
 function uploadPendingTransactions() {
