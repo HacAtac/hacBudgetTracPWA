@@ -82,7 +82,7 @@ function uploadPendingTransactions() {
                     // clear all items in your pending object store
                     pendingObjectStore.clear();
 
-                    alert('your transactions have been successfully uploaded!');
+                    alert('<(^.^<) (>^.^)> <(^.^<) (>^.^)> has sent your data to the server!');
                 })
                 .catch(err => {
                     console.log(err);
