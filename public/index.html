@@ -47,5 +47,16 @@
   <script src="js/index.js"></script>
   <script src="js/idb.js"></script>
 </body>
+<script>
+  (function () { //this is a self executing function to prevent global variables from being used
+    //and also to prevent the variables from being overwritten
+    //so that the variables are only accessible within this function
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./service-worker.js")
+        .then(() => console.log("Service Worker Registered!"))
+        .catch(error => console.log("Service Worker Not Registered", error));
+    }
+  })();
+</script>
 
 </html>
