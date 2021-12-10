@@ -136,7 +136,8 @@ function sendTransaction(isAdding) {
   })
   .catch(err => {
     // fetch failed, so save in indexed db
-    saveRecord(transaction);
+    saveRecord(transaction); // this is from the indexed db file and if offline it will save to the indexed db
+    // which is why we are using the saveRecord function here
 
     // clear form
     nameEl.value = "";
