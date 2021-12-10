@@ -14,6 +14,8 @@ request.onupgradeneeded = function(event) {
     const db = event.target.result;
     //create an object store (table) called `pending` with autoIncrement primary key of sorts
     db.createObjectStore('pending', {autoIncrement: true});
+    //its not showing up in dev tools application
+    console.log(db);
 };
 
 //upon success, run this function
@@ -40,12 +42,57 @@ function saveRecord(record) {
     const transaction = db.transaction(['pending'], 'readwrite');
 
     //access the object store for `new_pizza`
-    const pizzaObjectStore = transaction.objectStore('pending');
+    const budgetObjectStore = transaction.objectStore('pending');
 
     // add the record to the object store with the key being the record's id using the add method
     budgetObjectStore.add(record);
 }
 
-// function uploadPendingTransactions() {
-//     //open a new transaction with 
-// }
+function uploadPendingTransactions() {
+    // open a transaction on your db
+    const transaction = db.transaction(['pending'], 'readwrite');
+
+    // access your pending object store
+    const pendingObjectStore = transaction.objectStore('pending');
+
+    // get all records from your object store and set it to a variable
+    const getAll = pendingObjectStore.getAll();
+
+    // upon a successful .getAll() execution, run this function
+    getAll.onsuccess = function() {
+        // if there was data in indexedDb's store, let's send it to the api server
+        if (getAll.result.length > 0) {
+            fetch('/api/transaction/bulk', {
+                method: 'POST',
+                body: JSON.stringify(getAll.result),
+                headers: {
+                    Accept: 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(serverResponse => {
+                    if (serverResponse.message) {
+                        throw new Error(serverResponse);
+                    }
+                    // open one more transaction on your db
+                    const transaction = db.transaction(['pending'], 'readwrite');
+                    //access the pending object store
+                    const pendingObjectStore = transaction.objectStore('pending');
+                    // clear all items in your pending object store
+                    pendingObjectStore.clear();
+
+                    alert('your transactions have been successfully uploaded!');
+                })
+                .catch(err => {
+                    console.log(err);
+                    alert(
+                        'your transactions were unable to be uploaded. Please try again later.'
+                    );
+                })
+        }
+    }
+}
+
+//listen for app coming back online
+window.addEventListener('online', uploadPendingTransactions);
