@@ -21,5 +21,7 @@ const transactionSchema = new Schema(
 );
 
 const Transaction = mongoose.model("Transaction", transactionSchema);
-
+//were setting the key to Transaction a key is in easier words the name of the model we are creating 
+//value is the schema or in easy words the structure of the model
 module.exports = Transaction;
+
