@@ -26,7 +26,8 @@ request.onsuccess = function(event) {
 
     // check if app is online, if yes run uploadPendingTransactions() function to send all local db data to api
     if (navigator.onLine) {
-        //uploadPendingTransactions(); //where is this function defined? it's not a function yet
+        uploadPendingTransactions(); //were calling this function to send all local db data to api
+        //then it will clear the local db and show a message to the user
     }
 };
 
@@ -46,6 +47,9 @@ function saveRecord(record) {
 
     // add the record to the object store with the key being the record's id using the add method
     budgetObjectStore.add(record);
+
+    // alert the user that the record was saved
+    alert('<(^.^<) (>^.^)> <(^.^<) (>^.^)> has saved your data locally!');
 }
 
 function uploadPendingTransactions() {
