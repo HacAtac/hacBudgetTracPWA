@@ -18,6 +18,7 @@ self.addEventListener('install', function (e) {
             console.log('installing cache : ' + CACHE_NAME);
             return cache.addAll(FILES_TO_CACHE);
         })
+        
     );
 });
 
