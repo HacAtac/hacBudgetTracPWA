@@ -8,8 +8,13 @@
   <meta name="theme-color" content="#317EFB">
   <link rel="shortcut icon" href="icons/icon-192x192.png" type="image/x-icon">
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" defer>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="./manifest.json">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0" defer></script>
+  <script src="./js/index.js" defer></script>
+  <script src="./js/idb.js" defer></script>
 
   <title>Budget Tracker</title>
 </head>
@@ -43,9 +48,7 @@
     <canvas id="myChart"></canvas>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-  <script src="js/index.js"></script>
-  <script src="js/idb.js"></script>
+
 </body>
 <script>
   (function () { //this is a self executing function to prevent global variables from being used
