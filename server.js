@@ -29,6 +29,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", {
   useCreateIndex: true,
   useFindAndModify: false,
 });
+// this is the default mongoDB database that actually db name is budget and the db is located in the localhost
 
 // routes
 app.use(require("./routes/api.js"));
