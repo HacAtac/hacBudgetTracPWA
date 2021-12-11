@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const compression = require("compression");
 
 const PORT = process.env.PORT || 3001;
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/budget";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/budget"; // this is the default mongoDB database
+//this is the default mongoDB database that actually db name is budget and the db is located in the localhost
 
 const app = express();
 
@@ -16,14 +17,23 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(MONGODB_URI, {
+// mongoose.connect(MONGODB_URI, {
+//   useNewUrlParser: true,
+//   useFindAndModify: true,
+//   useUnifiedTopology: true,
+// });
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", {
   useNewUrlParser: true,
-  useFindAndModify: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
 });
 
 // routes
 app.use(require("./routes/api.js"));
 app.listen(PORT, () => {
-  console.log(`<(^.^<) (>^.^)> <(^.^<) (>^.^)> <(^.^<) HacAtac Is On Port --> ${PORT}!`);
+  console.log(
+    `<(^.^<) (>^.^)> <(^.^<) (>^.^)> <(^.^<) HacAtac Is On Port --> ${PORT}!`
+  );
 });
